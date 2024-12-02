@@ -58,7 +58,7 @@ const Aside = ({ isOpen, toggleAside }) => {
                     <svg
                       stroke="#7b646c"
                       fill="#7b646c"
-                      stroke-width="0"
+                      strokeWidth="0"
                       viewBox="0 0 24 24"
                       className="text-primary h-6 w-6 transition-[transform]"
                       height="1em"
@@ -90,7 +90,7 @@ const Aside = ({ isOpen, toggleAside }) => {
                   <svg
                     stroke="#7b646c"
                     fill="#7b646c"
-                    stroke-width="0"
+                    strokeWidth="0"
                     viewBox="0 0 448 512"
                     height="20px"
                     width="20px"
@@ -109,7 +109,7 @@ const Aside = ({ isOpen, toggleAside }) => {
                   <svg
                     stroke="#7b646c"
                     fill="#7b646c"
-                    stroke-width="0"
+                    strokeWidth="0"
                     viewBox="0 0 512 512"
                     height="20px"
                     width="20px"

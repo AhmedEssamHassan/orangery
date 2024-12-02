@@ -22,7 +22,7 @@ const ProductItem = ({ data }) => {
         </div>
       </div>
 
-      <div class="relative z-[6]">
+      <div className="relative z-[6]">
         <img
           alt="product"
           width="100"

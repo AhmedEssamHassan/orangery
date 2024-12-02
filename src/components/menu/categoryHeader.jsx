@@ -13,10 +13,10 @@ const CategoryHeader = ({ item }) => {
           draggable="false"
         />
       </div>
-      <p class="text-center text-primary text-xl font-bold my-1 ">
+      <p className="text-center text-primary text-xl font-bold my-1 ">
         {item.title}
       </p>
-      <div class="w-full flex items-center border border-solid  rounded  text-sm p-2  bg-[#F0EFF0] text-[#7b646c80] border-[rgb(123 100 108 / 30%)]">
+      <div className="w-full flex items-center border border-solid  rounded  text-sm p-2  bg-[#F0EFF0] text-[#7b646c80] border-[rgb(123 100 108 / 30%)]">
         {item.hint}{" "}
       </div>
     </div>

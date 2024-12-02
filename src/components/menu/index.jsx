@@ -4,6 +4,7 @@ import CategoryHeader from "./categoryHeader";
 import ProductItem from "./productItem";
 import CategoryTab from "./categoryTab";
 import Aside from "../aside";
+import Navbar from "../navbar";
 
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
@@ -101,7 +102,7 @@ const Menu = () => {
   };
 
   const toggleAside = () => {
-    setIsAsideOpen(!isAsideOpen);
+    setIsAsideOpen((prev) => !prev);
   };
 
   return (
@@ -111,6 +112,7 @@ const Menu = () => {
       className="w-full xs:max-w-full lg:max-w-[30%] h-screen overflow-scroll lg:relative flex flex-col justify-start flex-1 md:border-r md:border-solid md:border-r-[#0000004D] lg:border-r lg:border-solid lg:border-r-[#0000004D]"
     >
       <Aside isOpen={isAsideOpen} toggleAside={toggleAside} />
+      <Navbar toggleAside={toggleAside} />
       {/* Menu Bar */}
       <div
         id="menu-bar"
