@@ -160,6 +160,7 @@ const Menu = () => {
           />
         ))}
       </div>
+
       {/* Menu Items */}
       <div className="mt-5 p-4">
         {categories.map((item) => {
