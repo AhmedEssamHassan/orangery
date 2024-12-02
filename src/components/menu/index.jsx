@@ -3,10 +3,12 @@ import categories from "../data";
 import CategoryHeader from "./categoryHeader";
 import ProductItem from "./productItem";
 import CategoryTab from "./categoryTab";
+import Aside from "../aside";
 
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
-  const [isMenuBarVisible, setIsMenuBarVisible] = useState(false); // Control menu bar visibility
+  const [isMenuBarVisible, setIsMenuBarVisible] = useState(false);
+  const [isAsideOpen, setIsAsideOpen] = useState(true);
   const menuBarRef = useRef(null);
   const menuRef = useRef(null);
   const sectionsRefs = useRef({});
@@ -15,7 +17,6 @@ const Menu = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (menuRef.current) {
-        // Check the scroll position
         if (menuRef.current.scrollTop > 100) {
           setIsMenuBarVisible(true);
         } else {
@@ -99,12 +100,17 @@ const Menu = () => {
     }, 500);
   };
 
+  const toggleAside = () => {
+    setIsAsideOpen(!isAsideOpen);
+  };
+
   return (
     <div
       id="menu"
       ref={menuRef}
       className="w-full xs:max-w-full lg:max-w-[30%] h-screen overflow-scroll lg:relative flex flex-col justify-start flex-1 md:border-r md:border-solid md:border-r-[#0000004D] lg:border-r lg:border-solid lg:border-r-[#0000004D]"
     >
+      <Aside isOpen={isAsideOpen} toggleAside={toggleAside} />
       {/* Menu Bar */}
       <div
         id="menu-bar"
