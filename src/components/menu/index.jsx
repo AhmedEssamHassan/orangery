@@ -5,6 +5,8 @@ import ProductItem from "./productItem";
 import CategoryTab from "./categoryTab";
 import Aside from "../aside";
 import Navbar from "../navbar";
+import MenuHeader from "./menuHeader";
+import Search from "./search";
 
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
@@ -113,7 +115,35 @@ const Menu = () => {
     >
       <Aside isOpen={isAsideOpen} toggleAside={toggleAside} />
       <Navbar toggleAside={toggleAside} />
+      {/* menu header */}
+      <MenuHeader />
+      {/* search bar */}
+      <Search />
       {/* Menu Bar */}
+      {/* slider */}
+      <div
+        id="category-top"
+        className=" flex gap-2 items-center p-4 w-full overflow-x-auto min-h-[130px] overflow-clip"
+      >
+        {categories.map((category) => (
+          <button
+            className="flex flex-col gap-2 items-center focus:outline-none"
+            key={category.id}
+            id={category.id}
+            onClick={() => handleCategoryClick(category.id)}
+          >
+            <img
+              alt=""
+              src={category.headerData.img}
+              className="h-[78px] mt-5 object-cover rounded-md max-w-[105px]"
+            />
+            <h4 className=" text-sm  font-bold text-primary break-all line-clamp-1">
+              {category.label}
+            </h4>
+          </button>
+        ))}
+      </div>
+      {/*  */}
       <div
         id="menu-bar"
         className={`w-full xs:max-w-full lg:max-w-[30%] flex items-stretch fixed top-0 shadow gap-2 px-4 bg-white z-50 p-4 overflow-x-auto overflow-y-hidden transition-opacity duration-300 ${
@@ -130,9 +160,8 @@ const Menu = () => {
           />
         ))}
       </div>
-
       {/* Menu Items */}
-      <div className="mt-20 p-4">
+      <div className="mt-5 p-4">
         {categories.map((item) => {
           return (
             <div

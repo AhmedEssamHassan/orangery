@@ -3,11 +3,13 @@ body {
   font-family: "Nunito", sans-serif;
 }
 #menu,
-#menu-bar {
+#menu-bar,
+#category-top {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
-#menu::-webkit-scrollbar {
+#menu::-webkit-scrollbar,
+#category-top::-webkit-scrollbar {
   display: none;
 }
