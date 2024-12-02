@@ -1,12 +1,40 @@
 import React, { useRef, useState, useEffect } from "react";
 import categories from "../data";
+import CategoryHeader from "./categoryHeader";
+import ProductItem from "./productItem";
+import CategoryTab from "./categoryTab";
 
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
+  const [isMenuBarVisible, setIsMenuBarVisible] = useState(false); // Control menu bar visibility
   const menuBarRef = useRef(null);
   const menuRef = useRef(null);
   const sectionsRefs = useRef({});
   const isClickingCategory = useRef(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (menuRef.current) {
+        // Check the scroll position
+        if (menuRef.current.scrollTop > 100) {
+          setIsMenuBarVisible(true);
+        } else {
+          setIsMenuBarVisible(false);
+        }
+      }
+    };
+
+    const menu = menuRef.current;
+    if (menu) {
+      menu.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (menu) {
+        menu.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -80,66 +108,37 @@ const Menu = () => {
       {/* Menu Bar */}
       <div
         id="menu-bar"
-        className="flex fixed top-0 w-full xs:max-w-full lg:max-w-[30%] z-50 bg-white shadow-md gap-4 p-4 overflow-x-auto scrollbar-hide"
+        className={`w-full xs:max-w-full lg:max-w-[30%] flex items-stretch fixed top-0 shadow gap-2 px-4 bg-white z-50 p-4 overflow-x-auto overflow-y-hidden transition-opacity duration-300 ${
+          isMenuBarVisible ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
         ref={menuBarRef}
       >
         {categories.map((category) => (
-          <div
+          <CategoryTab
             key={category.id}
-            id={category.id}
-            onClick={() => handleCategoryClick(category.id)}
-            className={`px-4 py-2 rounded-full cursor-pointer text-sm ${
-              activeCategory === category.id
-                ? "bg-orange-400 text-white"
-                : "bg-gray-200 text-gray-700 hover:bg-orange-300 hover:text-white"
-            }`}
-          >
-            {category.label}
-          </div>
+            activeCategory={activeCategory}
+            handleCategoryClick={handleCategoryClick}
+            category={category}
+          />
         ))}
       </div>
 
       {/* Menu Items */}
       <div className="mt-20 p-4">
-        {categories.map((category) => (
-          <div
-            key={category.id}
-            data-category={category.id}
-            className="menu-section mb-10"
-            ref={(el) => (sectionsRefs.current[category.id] = el)}
-          >
-            {/* Header Section */}
-            <div className="mb-4">
-              {category.headerData.image && (
-                <img
-                  src={category.headerData.image}
-                  alt={category.headerData.title}
-                  className="w-full h-auto mb-4 rounded-lg"
-                />
-              )}
-              <h2 className="text-2xl font-semibold mb-2">
-                {category.headerData.title}
-              </h2>
-              <p className="text-gray-500 text-sm">
-                {category.headerData.hint}
-              </p>
+        {categories.map((item) => {
+          return (
+            <div
+              ref={(el) => (sectionsRefs.current[item.id] = el)}
+              data-category={item.id}
+              key={item.id}
+            >
+              <CategoryHeader item={item.headerData} />
+              {item.items.map((data) => (
+                <ProductItem key={data.id} data={data} />
+              ))}
             </div>
-
-            {/* Items Section */}
-            {category.items.map((item) => (
-              <div
-                key={item.id}
-                className="border border-gray-300 rounded-lg p-4 mb-4 shadow-sm hover:shadow-md transition-shadow"
-              >
-                <h3 className="text-lg font-medium">{item.name}</h3>
-                <p className="text-gray-600 text-sm">{item.desc}</p>
-                <span className="block mt-2 font-semibold text-gray-700">
-                  {item.price}
-                </span>
-              </div>
-            ))}
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
