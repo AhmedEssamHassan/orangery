@@ -11,7 +11,7 @@ import Search from "./search";
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
   const [isMenuBarVisible, setIsMenuBarVisible] = useState(false);
-  const [isAsideOpen, setIsAsideOpen] = useState(true);
+  const [isAsideOpen, setIsAsideOpen] = useState(false);
   const menuBarRef = useRef(null);
   const menuRef = useRef(null);
   const sectionsRefs = useRef({});
